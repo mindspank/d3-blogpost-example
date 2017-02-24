@@ -79,14 +79,16 @@ enigma.getService('qix', config).then(qix => {
         const ul = d3.select(element).append('ul');
 
         const update = () => model.getLayout().then(layout => {
-            console.log(layout)
+
             const li = ul.selectAll('li').data(layout.qListObject.qDataPages[0].qMatrix, (d) => d[0].qElemNumber)
             
             li.enter().append('li')
+                .merge(li)
                 .text(d => d[0].qText)
                 .on('click', (d) => {
                     model.selectListObjectValues('/qListObjectDef', [d[0].qElemNumber], false);
                 })
+                .attr('class', d => d[0].qState)
         
         })
 

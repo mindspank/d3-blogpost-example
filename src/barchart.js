@@ -28,7 +28,7 @@ export default class BarChart {
         this.x.domain(dataPages.map((d) => d[0].qText));
 
         // Qlik Sense gives you min and max values for calculations.
-        this.y.domain([0, data.qHyperCube.qMeasureInfo[0].qMax]);
+        this.y.domain([0, data.qHyperCube.qMeasureInfo[0].qMax * 1.05]);
 
         let bar = this.svg.selectAll('.bar').data(dataPages, (d) => d[0].qElemNumber)
 
@@ -47,8 +47,7 @@ export default class BarChart {
             .attr('y', (d) => this.y(d[1].qNum))
             .attr('height', (d) => this.height - this.y(d[1].qNum))
             .style('fill', 'green')
-            
-            
+                        
             // Transition axies.
             d3.transition(this.svg).select(".x.axis").call(this.xAxis);
             d3.transition(this.svg).select(".y.axis").call(this.yAxis);

@@ -63,97 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var apply = Function.prototype.apply;
-
-// DOM APIs, for completeness
-
-exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-};
-exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-};
-exports.clearTimeout =
-exports.clearInterval = function(timeout) {
-  if (timeout) {
-    timeout.close();
-  }
-};
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
-};
-
-// Does not start the time, just sets up the members needed.
-exports.enroll = function(item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function(item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function(item) {
-  clearTimeout(item._idleTimeoutId);
-
-  var msecs = item._idleTimeout;
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout)
-        item._onTimeout();
-    }, msecs);
-  }
-};
-
-// setimmediate attaches itself to the global object
-__webpack_require__(10);
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://d3js.org Version 4.6.0. Copyright 2017 Mike Bostock.
@@ -16611,6 +16525,92 @@ exports.zoomIdentity = identity$8;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(11);
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -49215,7 +49215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 //# sourceMappingURL=enigma.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6).Buffer, __webpack_require__(0).setImmediate, __webpack_require__(0).clearImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7).Buffer, __webpack_require__(1).setImmediate, __webpack_require__(1).clearImmediate))
 
 /***/ }),
 /* 4 */
@@ -53743,6 +53743,95 @@ module.exports = {
 
 /***/ }),
 /* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
+
+
+class BarChart {
+    constructor(element, model) {
+
+        this.model = model;
+        
+        const margin = { top: 10, right: 20, bottom: 60, left: 40 };
+        this.width = element.offsetWidth - margin.left - margin.right;
+        this.height = element.offsetHeight - margin.top - margin.bottom;
+
+        this.svg = __WEBPACK_IMPORTED_MODULE_0_d3__["select"](element)
+            .append('svg')
+                .attr('width', this.width + margin.left + margin.right)
+                .attr('height', this.height + margin.top + margin.bottom)
+            .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        this.setAxis();
+
+    }
+
+    setData(data) {
+        
+        const dataPages = data.qHyperCube.qDataPages[0].qMatrix;
+
+        // Map over data, return the textual value of the first column (i.e our dimension).
+        this.x.domain(dataPages.map((d) => d[0].qText));
+
+        // Qlik Sense gives you min and max values for calculations.
+        this.y.domain([0, data.qHyperCube.qMeasureInfo[0].qMax * 1.05]);
+
+        let bar = this.svg.selectAll('.bar').data(dataPages, (d) => d[0].qElemNumber)
+
+        // D3 Exit selections - Remove bar.
+        bar.exit().remove();
+
+        bar.enter().append('rect')
+            .attr('class', 'bar')
+            .attr('id', (d) => d[0].qElemNumber)
+            .attr('x', (d) => this.x(d[0].qText))
+            .attr('width', this.x.bandwidth())
+            .attr('y', this.height)
+            .attr('height', 0)
+            .merge(bar)
+            .transition(750)
+            .attr('y', (d) => this.y(d[1].qNum))
+            .attr('height', (d) => this.height - this.y(d[1].qNum))
+            .style('fill', 'green')
+                        
+            // Transition axies.
+            __WEBPACK_IMPORTED_MODULE_0_d3__["transition"](this.svg).select(".x.axis").call(this.xAxis);
+            __WEBPACK_IMPORTED_MODULE_0_d3__["transition"](this.svg).select(".y.axis").call(this.yAxis);
+
+    }
+
+    setAxis() {
+        
+        this.x = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleBand"]()
+            .rangeRound([0,  this.width], .1)
+            .paddingInner(0.1);
+        
+        this.y = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleLinear"]()
+            .range([this.height, 0]);
+
+        this.xAxis = __WEBPACK_IMPORTED_MODULE_0_d3__["axisBottom"]().scale(this.x);
+        this.yAxis = __WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"]().scale(this.y)
+
+        this.svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + this.height + ")")
+            .call(this.xAxis);
+
+        this.svg.append("g")
+            .attr("class", "y axis")
+            .call(this.yAxis);
+
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BarChart;
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53863,7 +53952,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53877,9 +53966,9 @@ function fromByteArray (uint8) {
 
 
 
-var base64 = __webpack_require__(5)
-var ieee754 = __webpack_require__(7)
-var isArray = __webpack_require__(8)
+var base64 = __webpack_require__(6)
+var ieee754 = __webpack_require__(8)
+var isArray = __webpack_require__(9)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -55657,10 +55746,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -55750,7 +55839,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -55761,7 +55850,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -55947,7 +56036,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -56137,19 +56226,19 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(10)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_enigma_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_enigma_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_enigma_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_d3__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barchart__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__barchart__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_enigma_js_schemas_qix_3_1_schema_json__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_enigma_js_schemas_qix_3_1_schema_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_enigma_js_schemas_qix_3_1_schema_json__);
 
@@ -56233,14 +56322,16 @@ __WEBPACK_IMPORTED_MODULE_0_enigma_js___default.a.getService('qix', config).then
         const ul = __WEBPACK_IMPORTED_MODULE_1_d3__["select"](element).append('ul');
 
         const update = () => model.getLayout().then(layout => {
-            console.log(layout)
+
             const li = ul.selectAll('li').data(layout.qListObject.qDataPages[0].qMatrix, (d) => d[0].qElemNumber)
             
             li.enter().append('li')
+                .merge(li)
                 .text(d => d[0].qText)
                 .on('click', (d) => {
                     model.selectListObjectValues('/qListObjectDef', [d[0].qElemNumber], false);
                 })
+                .attr('class', d => d[0].qState)
         
         })
 
@@ -56253,96 +56344,6 @@ __WEBPACK_IMPORTED_MODULE_0_enigma_js___default.a.getService('qix', config).then
     })
 
 })
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_d3__);
-
-
-class BarChart {
-    constructor(element, model) {
-
-        this.model = model;
-        
-        const margin = { top: 10, right: 20, bottom: 60, left: 40 };
-        this.width = element.offsetWidth - margin.left - margin.right;
-        this.height = element.offsetHeight - margin.top - margin.bottom;
-
-        this.svg = __WEBPACK_IMPORTED_MODULE_0_d3__["select"](element)
-            .append('svg')
-                .attr('width', this.width + margin.left + margin.right)
-                .attr('height', this.height + margin.top + margin.bottom)
-            .append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-        this.setAxis();
-
-    }
-
-    setData(data) {
-        
-        const dataPages = data.qHyperCube.qDataPages[0].qMatrix;
-
-        // Map over data, return the textual value of the first column (i.e our dimension).
-        this.x.domain(dataPages.map((d) => d[0].qText));
-
-        // Qlik Sense gives you min and max values for calculations.
-        this.y.domain([0, data.qHyperCube.qMeasureInfo[0].qMax]);
-
-        let bar = this.svg.selectAll('.bar').data(dataPages, (d) => d[0].qElemNumber)
-
-        // D3 Exit selections - Remove bar.
-        bar.exit().remove();
-
-        bar.enter().append('rect')
-            .attr('class', 'bar')
-            .attr('id', (d) => d[0].qElemNumber)
-            .attr('x', (d) => this.x(d[0].qText))
-            .attr('width', this.x.bandwidth())
-            .attr('y', this.height)
-            .attr('height', 0)
-            .merge(bar)
-            .transition(750)
-            .attr('y', (d) => this.y(d[1].qNum))
-            .attr('height', (d) => this.height - this.y(d[1].qNum))
-            .style('fill', 'green')
-            
-            
-            // Transition axies.
-            __WEBPACK_IMPORTED_MODULE_0_d3__["transition"](this.svg).select(".x.axis").call(this.xAxis);
-            __WEBPACK_IMPORTED_MODULE_0_d3__["transition"](this.svg).select(".y.axis").call(this.yAxis);
-
-    }
-
-    setAxis() {
-        
-        this.x = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleBand"]()
-            .rangeRound([0,  this.width], .1)
-            .paddingInner(0.1);
-        
-        this.y = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleLinear"]()
-            .range([this.height, 0]);
-
-        this.xAxis = __WEBPACK_IMPORTED_MODULE_0_d3__["axisBottom"]().scale(this.x);
-        this.yAxis = __WEBPACK_IMPORTED_MODULE_0_d3__["axisLeft"]().scale(this.y)
-
-        this.svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + this.height + ")")
-            .call(this.xAxis);
-
-        this.svg.append("g")
-            .attr("class", "y axis")
-            .call(this.yAxis);
-
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = BarChart;
-
 
 /***/ })
 /******/ ]);

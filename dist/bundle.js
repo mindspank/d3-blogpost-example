@@ -56329,6 +56329,7 @@ __WEBPACK_IMPORTED_MODULE_0_enigma_js___default.a.getService('qix', config).then
                 .merge(li)
                 .text(d => d[0].qText)
                 .on('click', (d) => {
+                    // Instruct the Engine to filter the data model based on the clicked element. Will trigger a invalidation of state.
                     model.selectListObjectValues('/qListObjectDef', [d[0].qElemNumber], false);
                 })
                 .attr('class', d => d[0].qState)

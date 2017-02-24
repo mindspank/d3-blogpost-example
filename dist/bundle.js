@@ -53808,7 +53808,8 @@ class BarChart {
         
         this.x = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleBand"]()
             .rangeRound([0,  this.width], .1)
-            .paddingInner(0.1);
+            .paddingInner(0.1)
+            .paddingOuter(0.2);
         
         this.y = __WEBPACK_IMPORTED_MODULE_0_d3__["scaleLinear"]()
             .range([this.height, 0]);

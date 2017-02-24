@@ -58,7 +58,8 @@ export default class BarChart {
         
         this.x = d3.scaleBand()
             .rangeRound([0,  this.width], .1)
-            .paddingInner(0.1);
+            .paddingInner(0.1)
+            .paddingOuter(0.2);
         
         this.y = d3.scaleLinear()
             .range([this.height, 0]);
